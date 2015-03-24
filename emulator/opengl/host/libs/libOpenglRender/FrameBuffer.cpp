@@ -372,6 +372,7 @@ FrameBuffer::FrameBuffer(int p_width, int p_height) :
     m_subWin((EGLNativeWindowType)0),
     m_subWinDisplay(NULL),
     m_lastPostedColorBuffer(0),
+    m_dpi(160),
     m_zRot(0.0f),
     m_eglContextInitialized(false),
     m_statsNumFrames(0),
@@ -396,6 +397,7 @@ void FrameBuffer::setPostCallback(OnPostFn onPost, void* onPostContext)
     emugl::Mutex::AutoLock mutex(m_lock);
     m_onPost = onPost;
     m_onPostContext = onPostContext;
+	if(onPostContext==NULL) printf(" fb set post context null /n"); else printf(" fb set post contect valid /n");
     if (m_onPost && !m_fbImage) {
         m_fbImage = (unsigned char*)malloc(4 * m_width * m_height);
         if (!m_fbImage) {
@@ -441,7 +443,7 @@ bool FrameBuffer::setupSubWindow(FBNativeWindowType p_window,
                     // update viewport and z rotation and draw
                     // the last posted color buffer.
                     s_gl.glViewport(0, 0, p_width, p_height);
-                    fb->m_zRot = zRot;
+                  //  fb->m_zRot = zRot;
                     fb->post( fb->m_lastPostedColorBuffer, false );
                     fb->unbind_locked();
                     success = true;

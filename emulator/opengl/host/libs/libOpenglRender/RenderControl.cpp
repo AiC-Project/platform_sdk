@@ -20,6 +20,7 @@
 #include "GLDispatch.h"
 #include "GL2Dispatch.h"
 #include "ThreadInfo.h"
+#include <stdio.h>
 
 static const GLint rendererVersion = 1;
 
@@ -153,6 +154,9 @@ static EGLint rcGetFBParam(EGLint param)
             break;
         case FB_MAX_SWAP_INTERVAL:
             ret = 1; // XXX: should be implemented
+            break;
+        case FB_DPI:
+            ret = fb->getDPI();
             break;
         default:
             break;
@@ -339,6 +343,23 @@ static int rcUpdateColorBuffer(uint32_t colorBuffer,
     return 0;
 }
 
+
+static void rcSetOrientation(uint32_t orientation)
+{
+    FrameBuffer *fb = FrameBuffer::getFB();
+    void (* foo)(float );
+
+    if (!fb) {
+        return ;
+
+    }
+    fb->setDisplayRotation(orientation);
+    foo=(fb->_ptr_callBackRotation);
+    foo(fb->get_zRot());
+    return ;
+}
+
+
 void initRenderControlContext(renderControl_decoder_context_t *dec)
 {
     dec->set_rcGetRendererVersion(rcGetRendererVersion);
@@ -367,4 +388,5 @@ void initRenderControlContext(renderControl_decoder_context_t *dec)
     dec->set_rcReadColorBuffer(rcReadColorBuffer);
     dec->set_rcUpdateColorBuffer(rcUpdateColorBuffer);
     dec->set_rcOpenColorBuffer2(rcOpenColorBuffer2);
+    dec->set_rcSetOrientation(rcSetOrientation);
 }

@@ -100,7 +100,7 @@ int initOpenGLRenderer(int width, int height, char* addr, size_t addrLen)
     if (!s_renderThread) {
         return false;
     }
-    strncpy(s_renderAddr, addr, sizeof(s_renderAddr));
+    //strncpy(s_renderAddr, addr, sizeof(s_renderAddr));
 
     s_renderThread->start();
 
@@ -206,6 +206,41 @@ void setPostCallback(OnPostFn onPost, void* onPostContext)
         // callback could be supported with a separate process using shmem or
         // other IPC mechanism.
         return false;
+    }
+#endif
+}
+
+void AiC_setDPI(int dpi)
+{
+    FrameBuffer* fb = FrameBuffer::getFB();
+    if (fb) {
+        if (dpi >= 160){
+            fb->setDPI(dpi);
+        }
+    }
+}
+
+float AiC_CallbackRotation(void (* fn)(float rot))
+{
+#ifdef RENDER_API_USE_THREAD  // should be defined for mac
+    FrameBuffer* fb = FrameBuffer::getFB();
+    if (fb) {
+        if (fn!=NULL){
+            fb->_ptr_callBackRotation=fn;
+        }
+    }
+    return fb->get_zRot();
+
+#else
+    if (onPost) {
+        // onPost callback not supported with separate renderer process.
+        //
+        // If we ever revive separate process support, we could make the choice
+        // between thread and process at runtime instead of compile time, and
+        // choose the thread path if an onPost callback is requested. Or, the
+        // callback could be supported with a separate process using shmem or
+        // other IPC mechanism.
+        return -1;
     }
 #endif
 }

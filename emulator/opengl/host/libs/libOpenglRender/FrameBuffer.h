@@ -57,6 +57,8 @@ public:
 
     const FrameBufferCaps &getCaps() const { return m_caps; }
 
+    void setDPI(int dpi) { m_dpi = dpi; }
+    int getDPI() const { return m_dpi; }
     int getWidth() const { return m_width; }
     int getHeight() const { return m_height; }
 
@@ -98,6 +100,13 @@ public:
         repost();
     }
 
+    float get_zRot(void )
+    {
+        return m_zRot;
+    }
+
+    void (*_ptr_callBackRotation)(float rot);
+
 private:
     FrameBuffer(int p_width, int p_height);
     ~FrameBuffer();
@@ -110,6 +119,7 @@ private:
     static HandleType s_nextHandle;
     int m_x;
     int m_y;
+    int m_dpi;
     int m_width;
     int m_height;
     emugl::Mutex m_lock;
