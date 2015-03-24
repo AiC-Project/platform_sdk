@@ -117,6 +117,11 @@ typedef void (*OnPostFn)(void* context, int width, int height, int ydir,
                          int format, int type, unsigned char* pixels);
 DECL(void, setPostCallback, (OnPostFn onPost, void* onPostContext));
 
+
+
+DECL(float, AiC_CallbackRotation, ( void (* fn)(float)  ) ) ;
+
+
 /* createOpenGLSubwindow -
  *     Create a native subwindow which is a child of 'window'
  *     to be used for framebuffer display.

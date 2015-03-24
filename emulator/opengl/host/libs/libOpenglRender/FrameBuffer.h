@@ -97,6 +97,13 @@ public:
         repost();
     }
 
+    float get_zRot(void )
+    {
+        return m_zRot;
+    }
+
+    void (*_ptr_callBackRotation)(float rot);
+
 private:
     FrameBuffer(int p_width, int p_height);
     ~FrameBuffer();

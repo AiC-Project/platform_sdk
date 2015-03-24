@@ -389,6 +389,7 @@ void FrameBuffer::setPostCallback(OnPostFn onPost, void* onPostContext)
     android::Mutex::Autolock mutex(m_lock);
     m_onPost = onPost;
     m_onPostContext = onPostContext;
+	if(onPostContext==NULL) printf(" fb set post context null /n"); else printf(" fb set post contect valid /n");
     if (m_onPost && !m_fbImage) {
         m_fbImage = (unsigned char*)malloc(4 * m_width * m_height);
         if (!m_fbImage) {
@@ -434,7 +435,7 @@ bool FrameBuffer::setupSubWindow(FBNativeWindowType p_window,
                     // update viewport and z rotation and draw
                     // the last posted color buffer.
                     s_gl.glViewport(0, 0, p_width, p_height);
-                    fb->m_zRot = zRot;
+                  //  fb->m_zRot = zRot;
                     fb->post( fb->m_lastPostedColorBuffer, false );
                     fb->unbind_locked();
                     success = true;

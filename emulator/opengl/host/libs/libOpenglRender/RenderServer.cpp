@@ -71,7 +71,7 @@ RenderServer *RenderServer::create(char* addr, size_t addrLen)
         delete server;
         return NULL;
     }
-    memcpy(addr, addrstr, len);
+   // memcpy(addr, addrstr, len);
 
     return server;
 }

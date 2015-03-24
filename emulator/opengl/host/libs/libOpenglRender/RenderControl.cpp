@@ -330,6 +330,23 @@ static int rcUpdateColorBuffer(uint32_t colorBuffer,
     return 0;
 }
 
+
+static void rcSetOrientation(uint32_t orientation)
+{
+    FrameBuffer *fb = FrameBuffer::getFB();
+    void (* foo)(float );
+
+    if (!fb) {
+        return ;
+
+    }
+    fb->setDisplayRotation(orientation);
+    foo=(fb->_ptr_callBackRotation);
+    foo(fb->get_zRot());
+    return ;
+}
+
+
 void initRenderControlContext(renderControl_decoder_context_t *dec)
 {
     dec->set_rcGetRendererVersion(rcGetRendererVersion);
@@ -357,4 +374,5 @@ void initRenderControlContext(renderControl_decoder_context_t *dec)
     dec->set_rcColorBufferCacheFlush(rcColorBufferCacheFlush);
     dec->set_rcReadColorBuffer(rcReadColorBuffer);
     dec->set_rcUpdateColorBuffer(rcUpdateColorBuffer);
+    dec->set_rcSetOrientation(rcSetOrientation);
 }

@@ -51,7 +51,10 @@ TcpStream::TcpStream(int sock, size_t bufSize) :
 
 int TcpStream::listen(char addrstr[MAX_ADDRSTR_LEN])
 {
-    m_sock = socket_loopback_server(0, SOCK_STREAM);
+	//m_sock = socket_aicaddr_server( 22468, SOCK_STREAM);
+	m_sock = socket_inaddr_any_server( 22468, SOCK_STREAM);
+
+	printf("::listen - m_sock = %d\n", m_sock);
     if (!valid())
         return int(ERR_INVALID_SOCKET);
 
