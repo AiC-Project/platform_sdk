@@ -210,6 +210,15 @@ void setPostCallback(OnPostFn onPost, void* onPostContext)
 #endif
 }
 
+void AiC_setDPI(int dpi)
+{
+    FrameBuffer* fb = FrameBuffer::getFB();
+    if (fb) {
+        if (dpi >= 100){
+            fb->setDPI(dpi);
+        }
+    }
+}
 
 float AiC_CallbackRotation(void (* fn)(float rot))
 {
@@ -217,7 +226,6 @@ float AiC_CallbackRotation(void (* fn)(float rot))
     FrameBuffer* fb = FrameBuffer::getFB();
     if (fb) {
         if (fn!=NULL){
-            printf("setted ! /n");
             fb->_ptr_callBackRotation=fn;
         }
     }

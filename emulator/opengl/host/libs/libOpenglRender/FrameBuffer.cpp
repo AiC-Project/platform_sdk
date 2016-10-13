@@ -366,6 +366,7 @@ FrameBuffer::FrameBuffer(int p_width, int p_height) :
     m_subWinDisplay(NULL),
     m_lastPostedColorBuffer(0),
     m_zRot(0.0f),
+    m_dpi(160),
     m_eglContextInitialized(false),
     m_statsNumFrames(0),
     m_statsStartTime(0LL),

@@ -56,6 +56,8 @@ public:
 
     const FrameBufferCaps &getCaps() const { return m_caps; }
 
+    int setDPI(int dpi) { m_dpi = dpi; }
+    int getDPI() const { return m_dpi; }
     int getWidth() const { return m_width; }
     int getHeight() const { return m_height; }
 
@@ -116,6 +118,7 @@ private:
     static HandleType s_nextHandle;
     int m_x;
     int m_y;
+    int m_dpi;
     int m_width;
     int m_height;
     android::Mutex m_lock;

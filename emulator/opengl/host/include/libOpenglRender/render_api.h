@@ -120,6 +120,7 @@ DECL(void, setPostCallback, (OnPostFn onPost, void* onPostContext));
 
 
 DECL(float, AiC_CallbackRotation, ( void (* fn)(float)  ) ) ;
+DECL(void, AiC_setDPI, ( int dpi ) ) ;
 
 
 /* createOpenGLSubwindow -

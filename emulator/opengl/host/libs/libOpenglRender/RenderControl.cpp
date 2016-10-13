@@ -154,6 +154,9 @@ static EGLint rcGetFBParam(EGLint param)
         case FB_MAX_SWAP_INTERVAL:
             ret = 1; // XXX: should be implemented
             break;
+        case FB_DPI:
+            ret = fb->getDPI();
+            break;
         default:
             break;
     }
